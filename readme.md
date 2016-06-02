@@ -76,8 +76,6 @@ Your app may:
 
 ### Potential Project Ideas
 
-* **NOTE** One way to think of a one-model project is to imagine that you will be adding a User model with auth later. For example how we built a ToDo app in Express. A ToDo app might not be super useful without logging in, but that can be OK. But the best project ideas can stand on their own without the need of users logging in. Here are some examples:
-
 #### Haiku Generator
 - Make an app to generate Haiku's on a given topic.
 - A user enters a word like "summer" or "programming" into a form, which creates a new "Haiku" and saves in the database.
