@@ -21,21 +21,27 @@ This second project is your first foray into **building a full-stack application
 
 Your app must:
 
-* **Have 1 model** (you can add more if it makes sense, but this should be done **after** you have an app with one model fully functioning) – your one model can be anything but a `user`, as we will not cover authentification until we get to Rails.
+* **Have one model** (you can add more if it makes sense, but this should be done **after** you have an app with one model fully functioning) – your one model can be anything but a `user`, as we will not cover authentification until we get to Rails.
 
 * **Have complete RESTful routes** for your resource (model) with GET, POST, PUT, PATCH, and DELETE
 
 * **Use ActiveRecord to create a database table structure** and interact with your relationally-stored data
 
-* **Use AJAX** either to make a request to your own backend to CRUD data without a page reload **OR** to hit an external API. Or both!
-
 * **Include wireframes** that you designed during the planning process
+
+* **Follow user stories** that are written on Trello in a conventional way.
 
 * Have **semantically clean HTML, ERB and CSS**
 
 * **Be deployed online** and accessible to the public
 
 * **NOTE**: This is not an API. This is a full stack app with dynamic view pages using `.erb` files
+
+Your app may:
+
+* **Use AJAX** either to make a request to your own backend to CRUD data without a page reload **OR** to hit an external API. Or both!
+
+* **Have more than one model** that have a relationship to one another.
 
 ---
 
