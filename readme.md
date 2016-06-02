@@ -107,7 +107,7 @@ Your app must:
 * **[Singing With Sinatra](http://code.tutsplus.com/tutorials/singing-with-sinatra--net-18965)** (A solid tutorial)
 * **[Heroku](http://www.heroku.com)** _(for hosting your back-end)_
 * **[Writing Good User Stories](http://www.mariaemerson.com/user-stories/)** _(for a few user story tips)_
-* **[Presenting Information Architecture](http://webstyleguide.com/wsg3/3-information-architecture/4-presenting-information.html)** _(for more insight into wireframing)_
+* **[Presenting Information Architecture](http://webstyleguide.com/wsg3/3-information-architecture/4-presenting-information.html)** _(for more insight into wireframing about 1/3 down the page)_
 
 ---
 
