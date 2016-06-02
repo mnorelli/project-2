@@ -21,7 +21,7 @@ This second project is your first foray into **building a full-stack application
 
 Your app must:
 
-* **Have at 1 model** (you can add more if it makes sense, but this should be done **after** you have an app with one model fully functioning) – your one model can be anything but a `user`, as we will not cover authentification until we get to Rails.
+* **Have 1 model** (you can add more if it makes sense, but this should be done **after** you have an app with one model fully functioning) – your one model can be anything but a `user`, as we will not cover authentification until we get to Rails.
 
 * **Have complete RESTful routes** for your resource (model) with GET, POST, PUT, PATCH, and DELETE
 
@@ -30,7 +30,8 @@ Your app must:
 * **Use AJAX** either to make a request to your own backend to CRUD data without a page reload **OR** to hit an external API. Or both!
 
 * **Include wireframes** that you designed during the planning process
-* Have **semantically clean HTML and CSS**
+
+* Have **semantically clean HTML, ERB and CSS**
 
 * **Be deployed online** and accessible to the public
 
@@ -71,6 +72,8 @@ Your app must:
 
 ### Potential Project Ideas
 
+* **NOTE** One way to think of a one-model project is to imagine that you will be adding a User model with auth later. For example how we built a ToDo app in Express. A ToDo app might not be super useful without logging in, but that can be OK. But the best project ideas can stand on their own without the need of users logging in. Here are some examples:
+
 #### Haiku Generator
 - Make an app to generate Haiku's on a given topic.
 - A user enters a word like "summer" or "programming" into a form, which creates a new "Haiku" and saves in the database.
@@ -80,8 +83,9 @@ Your app must:
 #### Cheerful Messages
 
 - Create an app that will allow people to create "cheerups" - happy little quips to brighten other peoples' days. Cheerups will be small - limited to 139 characters.
-- Cheerups can be upvoted or reported as spam!
+- Cheerups can be upvoted, downvoted or reported as spam!
 - If they get more than one spam report they are deleted.
+- If they get more than x downvotes, users can edit them!
 - Alternatively, make "Bumouts"
 
 
