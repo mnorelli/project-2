@@ -23,19 +23,19 @@ Your app must:
 
 * **Have one model** (you can add more if it makes sense, but this should be done **after** you have an app with one model fully functioning) – your one model can be anything but a `user`, as we will not cover authentification until we get to Rails.
 
-* **Have complete RESTful routes** for your resource (model) with GET, POST, PUT, PATCH, and DELETE
+* **Have complete RESTful routes** for your resource (model) with GET, POST, PUT, PATCH, and DELETE.
 
-* **Use ActiveRecord to create a database table structure** and interact with your relationally-stored data
+* **Use ActiveRecord to create a database table structure** and interact with your relationally-stored data.
 
-* **Include wireframes** that you designed during the planning process
+* **Include wireframes** that you designed during the planning process.
 
 * **Follow user stories** that are written on Trello in a conventional way.
 
-* Have **semantically clean HTML, ERB and CSS**
+* Have **semantically clean HTML, ERB and CSS**.
 
-* **Be deployed online** and accessible to the public
+* **Be deployed online** and accessible to the public.
 
-* **NOTE**: This is not an API. This is a full stack app with dynamic view pages using `.erb` files
+* **NOTE**: This is not an API. This is a full stack app with dynamic view pages using `.erb` files.
 
 Your app may:
 
