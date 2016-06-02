@@ -35,8 +35,6 @@ Your app must:
 
 * **Be deployed online** and accessible to the public.
 
-* **NOTE**: This is not an API. This is a full stack app with dynamic view pages using `.erb` files.
-
 Your app may:
 
 * **Use AJAX** either to make a request to your own backend to CRUD data without a page reload **OR** to hit an external API. Or both!
