@@ -99,6 +99,7 @@ Your app must:
 - Build something useful for yourself!
 - You must CRUD something. What is helpful to you? Basketball scores? Projects? Surf height? Best thing's you've eaten in the Bay Area?
 - Can you use AJAX to get and display the weather from an external API? Or to get your schedule for the day?
+
 ---
 
 ### Useful Resources
