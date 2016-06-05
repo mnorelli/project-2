@@ -25,6 +25,15 @@ Sharing parts of the world we have been to is a way to compare notes about the l
 
 [Front page wireframe](https://github.com/mnorelli/project-2/blob/gh-pages/planning/frontpage.png)
 
+### Data Model
+
+The set of data will be called Places, and each place has:
+
+* a Title, as a string
+* a Location, as a string containing a city and country
+* a Photo, as a string containing a URL
+* a Description, as a long string
+
 ### Technology Used
 
 * HTML/CSS
