@@ -23,9 +23,12 @@ Sharing parts of the world we have been to is a way to compare notes about the l
 
 * A user can click on a map point or a button in the text list to bring up a form to change an entered location
 
+[Front page wireframe](https://github.com/mnorelli/project-2/blob/gh-pages/planning/frontpage.png)
+
 ### Technology Used
 
 * HTML/CSS
+* Bootstrap
 * Ajax
 * Ruby
 * Sinatra
@@ -50,7 +53,7 @@ Then, try to get it to host on Heroku.
 
 ### Installation Instructions
 
-It's a web project!  Click [here](#)!
+It's a web app!  Click [here](#).
 
 ### Unsolved Problems
 
