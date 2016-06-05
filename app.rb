@@ -23,8 +23,8 @@ class Places < Sinatra::Base
 
   # index
   get '/places' do
-    @artists = Place.all
-    erb(:"place/index")
+    @places = Place.all
+    erb(:"places/index")
   end
 
 end
