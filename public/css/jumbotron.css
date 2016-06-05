@@ -9,7 +9,11 @@ Ref:
 Thanks to:
 http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
 */
-
+.social-icon {
+  height: 30px;
+  width: 30px;
+  margin: 0 5px 0 5px;
+}
 #pinBoot {
   position: relative;
   max-width: 100%;
