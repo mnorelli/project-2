@@ -1,17 +1,14 @@
-<h2>Edit place</h2>
-
-<form action='/places/<%= "#{@place.id}" %>' method='post'>
-  <label for="place[title]">Title:</label>
-  <input name="place[title]" value='<%= "#{@place.title}" %>'>
-
-  <label for="place[photo_url]">Photo URL:</label>
-  <input name="place[photo_url]" value='<%= "#{@place.photo_url}" %>'>
-
-  <label for="place[location]">Location:</label>
-  <input name="place[location]" value='<%= "#{@place.location}" %>'>
-
-  <label for="place[description]">Description:</label>
-  <input name="place[description]" value='<%= "#{@place.description}" %>'>
-
-  <input type="submit" value="Edit">
-</form>
+<section id="pinBoot">
+  <article class="white-panel">
+  <form action='/places/<%= "#{@place.id}" %>' method='post'>
+    <h4><input class="col-lg-12" name="place[title]" value='<%= "#{@place.title}" %>'></h4>
+    <hr>
+    <input class="col-lg-12" name="place[photo_url]" value='<%= "#{@place.photo_url}" %>'>
+    <input class="col-lg-12" name="place[location]" value='<%= "#{@place.location}" %>'>
+    <hr>
+    <textarea class="col-lg-12" rows="7" name="place[description]"><%= "#{@place.description}" %></textarea>
+    <button type="submit" class="btn btn-sm btn-primary btn-secondary pull-right" style="float:right">Edit</button>
+  </form>
+  </article>
+</section>
+<div class="whitespace"></div>

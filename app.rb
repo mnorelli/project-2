@@ -52,7 +52,7 @@ class Places < Sinatra::Base
   post '/places/:id' do
     @place = Place.find(params[:id])
     if @place.update_attributes(params[:place])
-      redirect("/places/#{@place.id}")
+      redirect("/places")
     else
       erb(:"places/edit")
     end

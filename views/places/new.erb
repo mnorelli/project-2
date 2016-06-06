@@ -1,17 +1,15 @@
-<h2>New Place</h2>
-
-<form action="/places" method="post">
-  <label for="place[title]">Title:</label>
-  <input name="place[title]">
-
-  <label for="place[photo_url]">Photo URL:</label>
-  <input name="place[photo_url]">
-
-  <label for="place[location]">Location:</label>
-  <input name="place[location]">
-
-  <label for="place[description]">Description:</label>
-  <input name="place[description]">
-
-  <input type="submit" value="Create">
-</form>
+<section id="pinBoot">
+  <article class="white-panel">
+  <form action="/places" method="post">
+  <h2>New Place</h2>
+    <h4><input class="col-lg-12" name="place[title]" placeholder="Title"></h4>
+    <hr>
+    <input class="col-lg-12" name="place[photo_url]" placeholder="Media or image URL">
+    <input class="col-lg-12" name="place[location]" placeholder="Location">
+    <hr>
+    <textarea class="col-lg-12" rows="7" name="place[description]" placeholder="Description"></textarea>
+    <button type="submit" class="btn btn-sm btn-primary btn-secondary pull-right" style="float:right">Create</button>
+  </form>
+  </article>
+</section>
+<div class="whitespace"></div>
