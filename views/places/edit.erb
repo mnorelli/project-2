@@ -1,6 +1,6 @@
 <h2>Edit place</h2>
 
-<form action='/places/<%= "#{@place.id}" %>' method="post">
+<form action='/places/<%= "#{@place.id}" %>' method='post'>
   <label for="place[title]">Title:</label>
   <input name="place[title]" value='<%= "#{@place.title}" %>'>
 
@@ -13,5 +13,5 @@
   <label for="place[description]">Description:</label>
   <input name="place[description]" value='<%= "#{@place.description}" %>'>
 
-  <input type="submit" value="Create">
+  <input type="submit" value="Edit">
 </form>
