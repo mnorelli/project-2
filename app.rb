@@ -47,18 +47,18 @@ class Places < Sinatra::Base
     erb(:"places/edit")
   end
 
-  # update
-  put '/places/:id' do
+  # update/put
+  post '/places/:id' do
     @place = Place.find(params[:id])
     if @place.update_attributes(params[:place])
-      redirect("/places/#{place.id}")
+      redirect("/places/#{@place.id}")
     else
       erb(:"places/edit")
     end
   end
 
   # delete
-  delete '/places/:id/delete' do
+  post '/places/:id/delete' do
     @place = Place.find(params[:id])
     if @place.destroy
       redirect('/places')

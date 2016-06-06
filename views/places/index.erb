@@ -1,7 +1,7 @@
 <section id="pinBoot">
 <% @places.each do |place| %>
   <article class="white-panel">
-    <h4><a href="#"><%= place.title %></a></h4>
+    <h4><a href='/places/<%= place.id %>'><%= place.title %></a></h4>
     <img src="<%= place.photo_url %>" alt="<%= place.title %>">
     <h6><%= place.location %></h6>
     <p><%= place.description %></p>
