@@ -38,7 +38,7 @@ class Places < Sinatra::Base
   # show
   get '/places/:id' do
     @place = Place.find(params[:id])
-    erb(:"places/index")
+    erb(:"places/show")
   end
 
 end
