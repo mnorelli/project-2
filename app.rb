@@ -21,8 +21,24 @@ class Places < Sinatra::Base
 
   # new
   get '/places/new' do
-    # @places = Place.new
+    @places = Place.new
     erb(:"places/new")
+  end
+
+  # create
+  post '/places' do
+    @place = Place.new(params[:place])
+    if @place.save
+      redirect("/places")
+    else
+      erb(:"places/new")
+    end
+  end
+
+  # show
+  get '/places/:id' do
+    @place = Place.find(params[:id])
+    erb(:"places/index")
   end
 
 end
