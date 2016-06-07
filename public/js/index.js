@@ -3,13 +3,14 @@ $(document).ready(function() {
     mapboxgl.accessToken = 'pk.eyJ1IjoibW5vcmVsbGkiLCJhIjoiU3BCcTNJQSJ9.4EsgnQLWdR10NXrt7aBYGw';
     var map = new mapboxgl.Map({
         container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+        style: 'mapbox://styles/mapbox/outdoors-v9', //stylesheet location
         center: [-74.50, 40], // starting position
         zoom: 9, // starting zoom
         scrollZoom: false
         });
 
     map.addControl(new mapboxgl.Navigation());
+    map.addControl(new mapboxgl.Geocoder());
 
     $('#pinBoot').pinterest_grid({
         no_columns: 4,
