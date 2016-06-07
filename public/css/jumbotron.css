@@ -2,7 +2,16 @@
 body {
   padding-top: 50px;
   padding-bottom: 20px;
+  /* MapBox */
+  margin:0;
 }
+
+.map-container {
+  height: 300px;
+  position: relative;
+}
+
+#map { position:absolute; top:0; bottom:0; width:100%; }
 
 /*
 Ref:
