@@ -5,9 +5,12 @@ $(document).ready(function() {
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
         center: [-74.50, 40], // starting position
-        zoom: 9 // starting zoom
+        zoom: 9, // starting zoom
+        scrollZoom: false
         });
-    
+
+    map.addControl(new mapboxgl.Navigation());
+
     $('#pinBoot').pinterest_grid({
         no_columns: 4,
         padding_x: 10,
