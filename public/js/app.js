@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
     mapboxgl.accessToken = 'pk.eyJ1IjoibW5vcmVsbGkiLCJhIjoiU3BCcTNJQSJ9.4EsgnQLWdR10NXrt7aBYGw';
-    var map = new mapboxgl.Map({
+
+    mapObj.map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/outdoors-v9', //stylesheet location
         center: [-74.50, 40], // starting position
@@ -9,25 +10,20 @@ $(document).ready(function() {
         scrollZoom: false
         });
 
-    // geocoder.on('result', function(ev) {
-    //     console.log(ev.result.place_name);
-    // });
+    canvasObj.canvas = mapObj.map.getCanvasContainer();
 
-        map.addControl(new mapboxgl.Navigation());
-        var geocoder = new mapboxgl.Geocoder();
-        map.addControl(geocoder);
+    mapObj.map.addControl(new mapboxgl.Navigation());
+    var geocoder = new mapboxgl.Geocoder();
+    mapObj.map.addControl(geocoder);
 
-    map.on('load', function() {
+    mapObj.map.on('load', function() {
 
-        map.addSource("user-destination", {
+        mapObj.map.addSource("user-destination", {
             "type": "geojson",
-            "data": {
-                "type": "FeatureCollection",
-                "features": []
-            }
+            "data": geojson
         });
 
-        map.addLayer({
+        mapObj.map.addLayer({
             "id": "drone-glow-strong",
             "type": "circle",
             "source": "user-destination",
@@ -38,7 +34,7 @@ $(document).ready(function() {
             }
         });
 
-        map.addLayer({
+        mapObj.map.addLayer({
             "id": "drone-glow",
             "type": "circle",
             "source": "user-destination",
@@ -49,7 +45,7 @@ $(document).ready(function() {
             }
         });
 
-        map.addLayer({
+        mapObj.map.addLayer({
             "id": "point",
             "source": "user-destination",
             "type": "symbol",
@@ -65,8 +61,33 @@ $(document).ready(function() {
         // Listen for the `geocoder.input` event that is triggered when a user
         // makes a selection and add a marker that matches the result.
         geocoder.on('result', function(ev) {
-            map.getSource("user-destination").setData(ev.result.geometry);
+            mapObj.map.getSource("user-destination").setData(ev.result.geometry);
         });
+
+
+        // If a feature is found on map movement,
+        // set a flag to permit a mousedown events.
+        mapObj.map.on('mousemove', function(e) {
+            var features = mapObj.map.queryRenderedFeatures(e.point, { layers: ['point'] });
+
+            // Change point and cursor style as a UI indicator
+            // and set a flag to enable other mouse events.
+            if (features.length) {
+                mapObj.map.setPaintProperty ('drone-glow-strong', 'circle-color', '#3bb2d0');
+                canvasObj.canvas.style.cursor = 'move';
+                isCursorOverPoint = true;
+                mapObj.map.dragPan.disable();
+            } else {
+                mapObj.map.setPaintProperty ('drone-glow-strong', 'circle-color', '#3887be');
+                canvasObj.canvas.style.cursor = '';
+                isCursorOverPoint = false;
+                mapObj.map.dragPan.enable();
+            }
+        });
+
+        // Set `true` to dispatch the event before other functions call it. This
+        // is necessary for disabling the default map dragging behaviour.
+        mapObj.map.on('mousedown', mouseDown, true);
     });
 
 
@@ -81,7 +102,61 @@ $(document).ready(function() {
         single_column_breakpoint: 700
     });
 
-});
+});   ///////////////////////  end of window on load
+
+// Holds mousedown state for events. if this
+// flag is active, we move the point on `mousemove`.
+var isDragging;
+
+// Is the cursor over a point? if this
+// flag is active, we listen for a mousedown event.
+var isCursorOverPoint;
+
+mapObj = {};
+canvasObj = {};
+var geojson = {
+    "type": "FeatureCollection",
+    "features": []
+    }
+
+function mouseDown(e) {
+    if (!isCursorOverPoint) return;
+
+    isDragging = true;
+
+    // Set a cursor indicator
+    canvasObj.canvas.style.cursor = 'grab';
+
+    // Mouse events
+    mapObj.map.on('mousemove', onMove);
+    mapObj.map.on('mouseup', onUp);
+}
+
+function onMove(e) {
+    if (!isDragging) return;
+    var coords = e.lngLat;
+
+    // Set a UI indicator for dragging.
+    canvasObj.canvas.style.cursor = 'grabbing';
+
+    // Update the Point feature in `geojson` coordinates
+    // and call setData to the source layer `point` on it.
+    geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
+    mapObj.map.getSource('user-destination').setData(geojson);
+}
+
+function onUp(e) {
+    if (!isDragging) return;
+    var coords = e.lngLat;
+
+    // Print the coordinates of where the point had
+    // finished being dragged to on the map.
+    // coordinates.style.display = 'block';
+    // coordinates.innerHTML = 'Longitude: ' + coords.lng + '<br />Latitude: ' + coords.lat;
+    console.log('Longitude: ' + coords.lng + '<br />Latitude: ' + coords.lat);
+    canvasObj.canvas.style.cursor = '';
+    isDragging = false;
+}
 
 /*
 Ref:
