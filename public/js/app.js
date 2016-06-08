@@ -9,8 +9,69 @@ $(document).ready(function() {
         scrollZoom: false
         });
 
-    map.addControl(new mapboxgl.Navigation());
-    map.addControl(new mapboxgl.Geocoder());
+    // geocoder.on('result', function(ev) {
+    //     console.log(ev.result.place_name);
+    // });
+
+        map.addControl(new mapboxgl.Navigation());
+        var geocoder = new mapboxgl.Geocoder();
+        map.addControl(geocoder);
+
+    map.on('load', function() {
+
+        map.addSource("user-destination", {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
+        });
+
+        map.addLayer({
+            "id": "drone-glow-strong",
+            "type": "circle",
+            "source": "user-destination",
+            "paint": {
+                "circle-radius": 18,
+                "circle-color": "#faa",
+                "circle-opacity": 0.4
+            }
+        });
+
+        map.addLayer({
+            "id": "drone-glow",
+            "type": "circle",
+            "source": "user-destination",
+            "paint": {
+                "circle-radius": 40,
+                "circle-color": "#fff",
+                "circle-opacity": 0.1
+            }
+        });
+
+        map.addLayer({
+            "id": "point",
+            "source": "user-destination",
+            "type": "symbol",
+            "layout": {
+                "icon-image": "monument-15"
+                }
+            //     },
+            // "paint": {
+            //     "icon-color": "#f00"
+            //     }
+        });
+
+        // Listen for the `geocoder.input` event that is triggered when a user
+        // makes a selection and add a marker that matches the result.
+        geocoder.on('result', function(ev) {
+            map.getSource("user-destination").setData(ev.result.geometry);
+        });
+    });
+
+
+
+
 
     $('#pinBoot').pinterest_grid({
         no_columns: 4,
