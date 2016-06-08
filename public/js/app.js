@@ -29,7 +29,7 @@ $(document).ready(function() {
             "source": "user-destination",
             "paint": {
                 "circle-radius": 18,
-                "circle-color": "#f55",
+                "circle-color": "#bb0",
                 "circle-opacity": 0.4
             }
         });
@@ -73,12 +73,12 @@ $(document).ready(function() {
             // Change point and cursor style as a UI indicator
             // and set a flag to enable other mouse events.
             if (features.length) {
-                mapObj.map.setPaintProperty ('drone-glow-strong', 'circle-color', '#3bb2d0');
+                mapObj.map.setPaintProperty ('drone-glow-strong', 'circle-color', '#f00');
                 canvasObj.canvas.style.cursor = 'move';
                 isCursorOverPoint = true;
                 mapObj.map.dragPan.disable();
             } else {
-                mapObj.map.setPaintProperty ('drone-glow-strong', 'circle-color', '#3887be');
+                mapObj.map.setPaintProperty ('drone-glow-strong', 'circle-color', '#bb0');
                 canvasObj.canvas.style.cursor = '';
                 isCursorOverPoint = false;
                 mapObj.map.dragPan.enable();
@@ -124,6 +124,11 @@ var geojson = {
         }
     }]
     }
+// Create a popup, but don't add it to the map yet.
+var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+});
 
 function mouseDown(e) {
     if (!isCursorOverPoint) return;
@@ -159,9 +164,32 @@ function onUp(e) {
     // finished being dragged to on the map.
     // coordinates.style.display = 'block';
     // coordinates.innerHTML = 'Longitude: ' + coords.lng + '<br />Latitude: ' + coords.lat;
-    console.log('Longitude: ' + coords.lng + '<br />Latitude: ' + coords.lat);
+    
     canvasObj.canvas.style.cursor = '';
     isDragging = false;
+
+    var features = mapObj.map.queryRenderedFeatures(e.point);
+    console.log(features)
+    if (features.length) {
+        features.forEach(function(feat){
+            if (feat.id) console.log(feat.layer.id, feat.properties.name);
+        })
+    }
+    // Change the cursor style as a UI indicator.
+    // mapObj.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+    if (!features.length) {
+        popup.remove();
+        return;
+    }
+
+    var feature = features[0];
+
+    // Populate the popup and set its coordinates
+    // based on the feature found.
+    popup.setLngLat(feature.geometry.coordinates)
+        .setHTML(feature.place_name+"<br>"+coords.lng + '<br>' + coords.lat)
+        .addTo(map);
 }
 
 /*
