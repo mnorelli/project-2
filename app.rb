@@ -1,8 +1,6 @@
 class Places < Sinatra::Base
 
   get '/' do
-    # @posts = :default
-    # erb :home
     redirect("/places")
   end
 

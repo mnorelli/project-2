@@ -29,7 +29,7 @@ $(document).ready(function() {
             "source": "user-destination",
             "paint": {
                 "circle-radius": 18,
-                "circle-color": "#faa",
+                "circle-color": "#f55",
                 "circle-opacity": 0.4
             }
         });
@@ -116,7 +116,13 @@ mapObj = {};
 canvasObj = {};
 var geojson = {
     "type": "FeatureCollection",
-    "features": []
+    "features": [{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [0, 0]
+        }
+    }]
     }
 
 function mouseDown(e) {
