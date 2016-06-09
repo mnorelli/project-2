@@ -175,6 +175,14 @@ function onUp(e) {
         features.forEach(function(feat){
             if (feat.id && feat.layer.id && feat.properties.name && feature.length == 0) {
                 feature = feat;
+                console.log(feature.properties.name+"\n"+coords.lng+"\n"+coords.lat)
+                // var popup = new mapboxgl.Popup()
+                //     .setLngLat(feature.geometry.coordinates)
+                //     .setHTML(feature.properties.description)
+                //     .addTo(map);
+                popup.setLngLat(feature.geometry.coordinates)
+                    .setHTML(feature.properties.name+"<br>"+coords.lng + '<br>' + coords.lat)
+                    .addTo(mapObj.map);
             }
         })
         // Populate the popup and set its coordinates
@@ -182,7 +190,7 @@ function onUp(e) {
         // popup.setLngLat(feature.geometry.coordinates)
         //     .setHTML(feature.place_name+"<br>"+coords.lng + '<br>' + coords.lat)
         //     .addTo(map);
-        console.log(feature.properties.name+"<br>"+coords.lng + '<br>' + coords.lat)
+        
     }
     // Change the cursor style as a UI indicator.
     // mapObj.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
