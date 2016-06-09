@@ -6,4 +6,4 @@ gem "rake" #gives us tasks and dependencies that can be specified in standard Ru
 gem "activerecord" #gives us all the helper methods of ActiveRecord and allows for object relational mapping
 gem "pg" #allows us to use postgresql as a DBMS for our app
 gem "tux" #allows us to have an interactive shell to play with object creation
-gem "geocode" # allows for translating names to coordinates
+gem "geocoder" # allows for translating names to coordinates
