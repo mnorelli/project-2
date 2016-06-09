@@ -171,9 +171,18 @@ function onUp(e) {
     var features = mapObj.map.queryRenderedFeatures(e.point);
     console.log(features)
     if (features.length) {
+        feature = []
         features.forEach(function(feat){
-            if (feat.id) console.log(feat.layer.id, feat.properties.name);
+            if (feat.id && feat.layer.id && feat.properties.name && feature.length == 0) {
+                feature = feat;
+            }
         })
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        // popup.setLngLat(feature.geometry.coordinates)
+        //     .setHTML(feature.place_name+"<br>"+coords.lng + '<br>' + coords.lat)
+        //     .addTo(map);
+        console.log(feature.properties.name+"<br>"+coords.lng + '<br>' + coords.lat)
     }
     // Change the cursor style as a UI indicator.
     // mapObj.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
@@ -183,13 +192,9 @@ function onUp(e) {
         return;
     }
 
-    var feature = features[0];
+    // var feature = features[0];
 
-    // Populate the popup and set its coordinates
-    // based on the feature found.
-    popup.setLngLat(feature.geometry.coordinates)
-        .setHTML(feature.place_name+"<br>"+coords.lng + '<br>' + coords.lat)
-        .addTo(map);
+    
 }
 
 /*
