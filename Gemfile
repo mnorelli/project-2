@@ -1,5 +1,6 @@
 # from GA_WDI29 active-record-models/solution-code
 source "https://rubygems.org"  #tells your app where to get the gems from
+gem "ruby"
 gem "sinatra" #allows us to use and run Sinatra record
 gem "sinatra-activerecord" #allows us to use Sinatra with ActiveRecord
 gem "rake" #gives us tasks and dependencies that can be specified in standard Ruby syntax (don't worry about it if you don't get it)
