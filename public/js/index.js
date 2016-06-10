@@ -1,3 +1,4 @@
+window.location = "https://personalgeography.herokuapp.com/places";
 $(document).ready(function() {
 $('#pinBoot').pinterest_grid({
 no_columns: 4,
