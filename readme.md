@@ -23,7 +23,8 @@ Sharing parts of the world we have been to is a way to compare notes about the l
 
 * A user can click on a map point or a button in the text list to bring up a form to change an entered location
 
-[Front page wireframe](https://github.com/mnorelli/project-2/blob/gh-pages/planning/frontpage.png)
+[Front page wireframe](https://github.com/mnorelli/project-2/blob/master/planning/frontpage.png)  
+[Process model](https://github.com/mnorelli/project-2/tree/master/planning/Process.jpg)
 
 ### Data Model
 
@@ -41,108 +42,38 @@ The set of data will be called Places, and each place has:
 * Ajax
 * Ruby
 * Sinatra
+* ActiveRecord
+* PostgreSQL
 
 ### Approach Taken
 
-This project contains technology I'm still learning, so I'm taking the advice of consultants to work on this in separate parts before wiring it all up.  
+This project contains technology I'm still learning, so I took the advice of consultants to work on this in separate parts before wiring it all up.
 
-I will start with testing bits of MapBox API to see if I can understand how to get what I want and affect maps with user input.  This part will be time-boxed to avoid working too long on interesting side issues without making progress on the working app.
+I tracked project progress in [Trello](https://trello.com/b/fULBqf00)  
 
-Next, I'll create a model and test basic CRUD steps in irb/pry, outside of the app to start
+I started with testing bits of MapBox API to understand how to get functionality I want and affect maps with user input.  This part was time-boxed to avoid working too long on interesting side issues without making progress on the working app.
 
-Then, I'll build the functional code to make sure things are representing on the screen as expected, again outside of the app.
+Next, I created a model and test basic CRUD steps in irb/pry, outside of the app to start.
 
-Then, I'll add the data model and try to affect it with page clicks and submissions.
+Then, I built the functional code to make sure user interaction functioned on the screen as expected.
 
-Then, try to get it to host on Heroku.
+Then, I added the data model and interacted with it using page clicks and submissions.
 
-Then, I'll wire in the maps.
+I used a new branch in git to develop the maps and map functions.
 
-Then, try to get it to host on Heroku.
+Then, I wired in the maps, back to the master branch, and passed server-side locations to the client-side to do map API interactions.
+
+Then, I hosted it on Heroku.
+
 
 ### Installation Instructions
 
-It's a web app!  Click [here](#).
+It's a web app hosted at Heroku!  Click [here](https://personalgeography.herokuapp.com/places).
 
 ### Unsolved Problems
 
+The app runs well with hard-coded test data, but there are remaining issues with getting server data to the cleint for use in the maps API.  I used a suggested method to write script tags using erb to make client-side variables populated with server data variables.  But this tended to confuse the Bootstrap CSS rendering.  I'm looking for more elegant ways to move data from server to client.
 
----
+A user login, even just mocked up, would present a nice interface and allow data to be perosnlaized for more than one person.
 
 
-### Project Must-Haves
-
-- a Sinatra app
-- exercise creativity on this project
-- sketch some wireframes before you start
-- write user stories
-- keep things small
-- focus on mastering the fundamentals
-- avoid scope creep/feature creep
-
-### Technical Requirements
-
-Your app must:
-
-* **Have one model** 
-* **Have complete RESTful routes** for your resource (model) with GET, POST, PUT, PATCH, and DELETE.
-* **Use ActiveRecord to create a database table structure**
-* **semantically clean HTML, ERB and CSS**
-* **Be deployed online** and accessible to the public.
-
-Your app may:
-
-* **Use AJAX** either to make a request to your own backend to CRUD data without a page reload **OR** to hit an external API. Or both!
-* **Have more than one model**
-
----
-
-### Necessary Deliverables
-
-* **working hosted, full-stack application, built by you**
-* A **link to your hosted working app** in the URL section of your Github repo
-* A **git repository hosted on Github**, frequent commits 
-* **This ``readme.md`` file**
-* **Wireframes of your app**, hosted somewhere & linked in your readme
-* A link in your ``readme.md`` to the publically-accessible **user stories you created**
-
----
-
-### Suggested Ways to Get Started
-
-* Test your assumptions
-* **Ask for help.** 
-* **Begin with the end in mind.** 
-* **Write throwaway code to solve short term problems.**
-* **Read the docs for whatever technologies you use.** 
-* **Keep user stories small & focused on what a user cares about**
-* **Write pseudocode before you write actual code.** ---
-
-### Useful Resources
-
-* **[Sinatra Home](http://www.sinatrarb.com/)**
-* **[Singing With Sinatra](http://code.tutsplus.com/tutorials/singing-with-sinatra--net-18965)** (A solid tutorial)
-* **[Heroku](http://www.heroku.com)** _(for hosting your back-end)_
-* **[Writing Good User Stories](http://www.mariaemerson.com/user-stories/)** _(for a few user story tips)_
-* **[Presenting Information Architecture](http://webstyleguide.com/wsg3/3-information-architecture/4-presenting-information.html)** _(for more insight into wireframing about 1/3 down the page)_
-
----
-
-### Project Feedback + Evaluation
-
-* __Project Workflow__
-  - user stories
-  - wireframes
-  - task tracking
-  - ERDs
-  - source control 
-* __Technical Requirements__ meet all
-  - complex?
-* __Creativity__ something of value 
-* __Code Quality__: 
-  - spacing
-  - modularity
-  - semantic naming
-  - comment your code
-* __Deployment and Functionality__ at a public URL
-  - free of errors and complete
