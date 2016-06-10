@@ -24,6 +24,12 @@ class Places < Sinatra::Base
     erb(:"places/new")
   end
 
+  get '/places/test' do
+    @places = Place.all
+    erb(:"places/test")
+  end
+
+
   # create
   post '/places' do
     @place = Place.new(params[:place])

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibW5vcmVsbGkiLCJhIjoiU3BCcTNJQSJ9.4EsgnQLWdR10NXrt7aBYGw';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+    center: [-74.50, 40], // starting position
+    zoom: 9 // starting zoom
+});
+
+placeArray = [{title: "First step in Africa", photo_url: "http://farm8.staticflickr.com/7001/6840860359_2afa42e715_o.jpg", location: "Dar Es Salaam, Tanzania", description: "From the American Embassy residence, we set off for a safari through Arusha toward Ngoro Ngoro Crater and Lake Manyara. We took a short trip to the lovely and exotic island of Zanzibar.", latitude: -6.792354, longitude: 39.2083284},
+{title: "Mexican Sun", photo_url: "http://www.carnival.com/~/media/Images/PreSales/Excursions/Ports_A-F/CZM/304167/Pictures/Cozumel%20Chankanaab%20jpg.jpg", location: "Cozumel, Mexico", description: "Super clear blue waters and white sand beaches with cold cervesas in easy reach. When we were there, we rented a VW Bug, as blue as the coastal waters, with the top cut off.", latitude: 20.4229839, longitude: -86.9223432},
+{title: "East Africa Safari", photo_url: "http://static1.squarespace.com/static/532f46fee4b0bf79b0b9fbc6/5453ef57e4b0c4af55efa5b1/5453ef71e4b075bd75fda5b6/1414786936079/Elephant+Walking1.gif", location: "Ngoro Ngoro Crater, Tanzania", description: "Tanzania is great place to see the 'big five' of wild game, elephants, African lion, African elephant, buffalo, leopard, and rhinoceros. In the crater are species that, because of the steep caldera walls, have genetically diverged from species outside.", latitude: -3.1740035, longitude: 35.5638921},
+{title: "The San Francisco of Canada", photo_url: "https://res-5.cloudinary.com/simpleview/image/upload/c_fill,f_auto,h_1110,q_75,w_1920/v1/clients/vancouverbc/itineraries_72c84dca-fe8b-4ed7-8d58-881be3c43d48.jpg", location: "Vancouver, British Columbia", description: "This city has many similarities with San Francisco, a beautiful natural setting on a bay, walkable neighborhoods, interesting inhabitants, and movie industry!", latitude: 49.2827291, longitude: -123.1207375},
+{title: "Our Nation's Capital", photo_url: "http://www.merms.mersd.org/Pages/MERMS_Washington/084D87F5-007EA7AB.0/washington-d-c-skyline.jpg", location: "Washington, DC", description: "Living in Washington, one cannot help but be steeped in the events and locations of American history. Colonial architecture sits side-by-side with modern offices and residential neighborhoods.", latitude: 38.9071923, longitude: -77.0368707},
+{title: "Twiga", photo_url: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Giraffes_Arusha_Tanzania.jpg", location: "Lake Manyara, Tanzania", description: "Twiga means giraffe in Ki-Swahili, and there are plenty of the slow and strikingly majestic creatures at the lake.", latitude: -3.6190593, longitude: 35.8061779}]
+
+
+  var pointsArray = [];
+
+
+placeArray.forEach(function(place){
+      var latTemp = place.latitude;
+      var lonTemp = place.longitude;
+      pointsArray.push({longitude:lonTemp,latitude:latTemp,title:place.title});
+})
+
+var geojson = makePoints(pointsArray)
+console.log(JSON.stringify(geojson))
+
+map.on('load', function () {
+    map.addSource("markers", {
+        "type": "geojson",
+        "data": geojson
+    });
+
+    map.addLayer({
+        "id": "markers",
+        "type": "symbol",
+        "source": "markers",
+        "layout": {
+            "icon-image": "{marker-symbol}-15",
+            "text-field": "{title}",
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
+        }
+    });
+});
+
+function makePoints(pointsArray) {
+    var featuresArray = [];
+    var lons = [];
+    var lats = [];
+
+    pointsArray.forEach(function(i){
+        lons.push(i.longitude);
+        lats.push(i.latitude);
+
+        title = i.title
+
+        featuresArray.push(
+        {
+            "type": "Feature",
+            "properties": {
+              "title": i.title,
+              "marker-symbol": "marker"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [i.longitude, i.latitude]
+            }
+        }
+        )
+
+    })
+
+    console.log(featuresArray)
+    x = featuresArray
+
+    var minLon = Math.min.apply(null, lons);
+    var minLat = Math.min.apply(null, lats);
+    var maxLon = Math.max.apply(null, lons);
+    var maxLat = Math.max.apply(null, lats);
+
+    var geojson = {
+        "type": "FeatureCollection",
+        "features": featuresArray
+        }
+
+    map.fitBounds([
+        [minLon, minLat],
+        [maxLon, maxLat]
+    ]);
+
+    return geojson
+}
+
+</script>
+
+</body>
+</html>

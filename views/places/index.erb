@@ -1,4 +1,10 @@
-<p><a class="btn btn-primary btn-sm" href="/places/new" role="button">Add a new place &raquo;</a></p><section id="pinBoot">
+<p><a class="btn btn-primary btn-sm" href="/places/new" role="button">Add a new place &raquo;</a></p>
+
+<section id="pinBoot">
+
+<!-- <script type="text/javascript">
+  var pointsArray = [];
+</script> -->
 
 <% @places.each do |place| %>
   <article class="white-panel">
@@ -6,6 +12,14 @@
     <img src="<%= place.photo_url %>" alt="<%= place.title %>">
     <h6><%= place.location %></h6>
     <p><%= place.description %></p>
+<!--   <script type="text/javascript">
+      var latTemp = '<%= place.latitude %>';
+      var lonTemp = '<%= place.longitude %>';
+      pointsArray.push({longitude:lonTemp,latitude:latTemp});
+  </script> -->
   </article>
 <% end %>
+<!-- <script type="text/javascript">
+      // makePoints(pointsArray);
+</script> -->
 </section>

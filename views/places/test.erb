@@ -1,0 +1,10 @@
+<div>
+
+
+<% @places.each do |place| %>
+
+{title: "<%= place.title %>", photo_url: "<%= place.photo_url %>", location: "<%= place.location %>", description: "<%= place.description %>", latitude: <%= place.latitude %>, longitude: <%= place.longitude %>},<br>
+
+<% end %>
+
+</div>

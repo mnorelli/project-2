@@ -16,11 +16,32 @@ $(document).ready(function() {
     var geocoder = new mapboxgl.Geocoder();
     mapObj.map.addControl(geocoder);
 
+    // var geojson = makePoints(pointsArray);
+    var geojson = {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [0, 0]
+            }
+        }]
+    };
+
     mapObj.map.on('load', function() {
 
         mapObj.map.addSource("user-destination", {
             "type": "geojson",
             "data": geojson
+        });
+
+        mapObj.map.addLayer({
+            "id": "non-cluster-markers",
+            "type": "symbol",
+            "source": "user-destination",
+            "layout": {
+                "icon-image": "marker-15"
+            }
         });
 
         mapObj.map.addLayer({
@@ -52,11 +73,9 @@ $(document).ready(function() {
             "layout": {
                 "icon-image": "monument-15"
                 }
-            //     },
-            // "paint": {
-            //     "icon-color": "#f00"
-            //     }
         });
+
+        addPlacePoints;
 
         // Listen for the `geocoder.input` event that is triggered when a user
         // makes a selection and add a marker that matches the result.
@@ -109,18 +128,48 @@ var isDragging;
 // flag is active, we listen for a mousedown event.
 var isCursorOverPoint;
 
+
 mapObj = {};
 canvasObj = {};
-var geojson = {
-    "type": "FeatureCollection",
-    "features": [{
-        "type": "Feature",
-        "geometry": {
-            "type": "Point",
-            "coordinates": [0, 0]
+
+// build markers from array passed by erb view
+function makePoints(pointsArray) {
+    var featuresArray = [];
+    var lons = [];
+    var lats = [];
+
+    pointsArray.forEach(function(i){
+        lons.push(i.longitude);
+        lats.push(i.latitude);
+
+        featuresArray.push = [{
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [i.longitude, i.latitude]
+            }
+        }]
+    })
+
+    var minLon = Math.min.apply(null, lons);
+    var minLat = Math.min.apply(null, lats);
+    var maxLon = Math.max.apply(null, lons);
+    var maxLat = Math.max.apply(null, lats);
+
+    var geojson = {
+        "type": "FeatureCollection",
+        "features": featuresArray
         }
-    }]
-    }
+
+    mapObj.map.fitBounds([
+        [minLon, minLat],
+        [maxLon, maxLat]
+    ]);
+
+    return geojson
+}
+
 // Create a popup, but don't add it to the map yet.
 var popup = new mapboxgl.Popup({
     closeButton: false,
@@ -149,6 +198,7 @@ function onMove(e) {
 
     // Update the Point feature in `geojson` coordinates
     // and call setData to the source layer `point` on it.
+
     geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
     mapObj.map.getSource('user-destination').setData(geojson);
 }
