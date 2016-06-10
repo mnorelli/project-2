@@ -4,7 +4,7 @@
     <h4><input class="col-lg-12" name="place[title]" value='<%= "#{@place.title}" %>'></h4>
     <hr>
     <input class="col-lg-12" name="place[photo_url]" value='<%= "#{@place.photo_url}" %>'>
-    <input class="col-lg-12" name="place[location]" value='<%= "#{@place.location}" %>'>
+    <input id="location" class="col-lg-12" name="place[location]" value='<%= "#{@place.location}" %>'>
     <hr>
     <textarea class="col-lg-12" rows="7" name="place[description]"><%= "#{@place.description}" %></textarea>
     <button type="submit" class="btn btn-sm btn-primary btn-secondary pull-right" style="float:right">Edit</button>
@@ -12,3 +12,5 @@
   </article>
 </section>
 <div class="whitespace"></div>
+
+<!--- zoom to current location's point -->

@@ -1,7 +1,8 @@
 class Places < Sinatra::Base
 
   get '/' do
-    redirect("/places")
+    # redirect("/places")
+    erb :"places/none"
   end
 
   get '/about' do

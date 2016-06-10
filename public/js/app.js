@@ -16,8 +16,23 @@ $(document).ready(function() {
     var geocoder = new mapboxgl.Geocoder();
     mapObj.map.addControl(geocoder);
 
-    // var geojson = makePoints(pointsArray);
-    var geojson = {
+placeArray = [{title: "First step in Africa", photo_url: "http://farm8.staticflickr.com/7001/6840860359_2afa42e715_o.jpg", location: "Dar Es Salaam, Tanzania", description: "From the American Embassy residence, we set off for a safari through Arusha toward Ngoro Ngoro Crater and Lake Manyara. We took a short trip to the lovely and exotic island of Zanzibar.", latitude: -6.792354, longitude: 39.2083284},
+{title: "Mexican Sun", photo_url: "http://www.carnival.com/~/media/Images/PreSales/Excursions/Ports_A-F/CZM/304167/Pictures/Cozumel%20Chankanaab%20jpg.jpg", location: "Cozumel, Mexico", description: "Super clear blue waters and white sand beaches with cold cervesas in easy reach. When we were there, we rented a VW Bug, as blue as the coastal waters, with the top cut off.", latitude: 20.4229839, longitude: -86.9223432},
+{title: "East Africa Safari", photo_url: "http://static1.squarespace.com/static/532f46fee4b0bf79b0b9fbc6/5453ef57e4b0c4af55efa5b1/5453ef71e4b075bd75fda5b6/1414786936079/Elephant+Walking1.gif", location: "Ngoro Ngoro Crater, Tanzania", description: "Tanzania is great place to see the 'big five' of wild game, elephants, African lion, African elephant, buffalo, leopard, and rhinoceros. In the crater are species that, because of the steep caldera walls, have genetically diverged from species outside.", latitude: -3.1740035, longitude: 35.5638921},
+{title: "The San Francisco of Canada", photo_url: "https://res-5.cloudinary.com/simpleview/image/upload/c_fill,f_auto,h_1110,q_75,w_1920/v1/clients/vancouverbc/itineraries_72c84dca-fe8b-4ed7-8d58-881be3c43d48.jpg", location: "Vancouver, British Columbia", description: "This city has many similarities with San Francisco, a beautiful natural setting on a bay, walkable neighborhoods, interesting inhabitants, and movie industry!", latitude: 49.2827291, longitude: -123.1207375},
+{title: "Our Nation's Capital", photo_url: "http://www.merms.mersd.org/Pages/MERMS_Washington/084D87F5-007EA7AB.0/washington-d-c-skyline.jpg", location: "Washington, DC", description: "Living in Washington, one cannot help but be steeped in the events and locations of American history. Colonial architecture sits side-by-side with modern offices and residential neighborhoods.", latitude: 38.9071923, longitude: -77.0368707},
+{title: "Twiga", photo_url: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Giraffes_Arusha_Tanzania.jpg", location: "Lake Manyara, Tanzania", description: "Twiga means giraffe in Ki-Swahili, and there are plenty of the slow and strikingly majestic creatures at the lake.", latitude: -3.6190593, longitude: 35.8061779}]
+
+    var geojson = makePoints(placeArray);
+
+    // get zoom level and decrease by 1 or proportion of total zoom
+    // var ozoom = mapObj.map.getZoom()
+    // console.log(ozoom)
+    // var newZoom = ozoom - 1
+    // if (newZoom < 1) newZoom = 1
+    // mapObj.map.setZoom(newZoom)
+
+    var search_geojson = {
         "type": "FeatureCollection",
         "features": [{
             "type": "Feature",
@@ -30,24 +45,32 @@ $(document).ready(function() {
 
     mapObj.map.on('load', function() {
 
+        mapObj.map.addSource("searched-point", {
+            "type": "geojson",
+            "data": search_geojson
+        });
+
         mapObj.map.addSource("user-destination", {
             "type": "geojson",
             "data": geojson
         });
 
         mapObj.map.addLayer({
-            "id": "non-cluster-markers",
+            "id": "basic-markers",
             "type": "symbol",
             "source": "user-destination",
             "layout": {
-                "icon-image": "marker-15"
+                "icon-image": "monument-15",
+                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"]
             }
         });
+
+
 
         mapObj.map.addLayer({
             "id": "drone-glow-strong",
             "type": "circle",
-            "source": "user-destination",
+            "source": "searched-point",
             "paint": {
                 "circle-radius": 18,
                 "circle-color": "#bb0",
@@ -58,7 +81,7 @@ $(document).ready(function() {
         mapObj.map.addLayer({
             "id": "drone-glow",
             "type": "circle",
-            "source": "user-destination",
+            "source": "searched-point",
             "paint": {
                 "circle-radius": 40,
                 "circle-color": "#fff",
@@ -68,19 +91,17 @@ $(document).ready(function() {
 
         mapObj.map.addLayer({
             "id": "point",
-            "source": "user-destination",
+            "source": "searched-point",
             "type": "symbol",
             "layout": {
-                "icon-image": "monument-15"
+                "icon-image": "marker-15"
                 }
         });
-
-        addPlacePoints;
 
         // Listen for the `geocoder.input` event that is triggered when a user
         // makes a selection and add a marker that matches the result.
         geocoder.on('result', function(ev) {
-            mapObj.map.getSource("user-destination").setData(ev.result.geometry);
+            mapObj.map.getSource("searched-point").setData(ev.result.geometry);
         });
 
 
@@ -131,6 +152,16 @@ var isCursorOverPoint;
 
 mapObj = {};
 canvasObj = {};
+var search_geojson = {
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [0, 0]
+        }
+    }]
+};
 
 // build markers from array passed by erb view
 function makePoints(pointsArray) {
@@ -142,14 +173,18 @@ function makePoints(pointsArray) {
         lons.push(i.longitude);
         lats.push(i.latitude);
 
-        featuresArray.push = [{
+        featuresArray.push({
             "type": "Feature",
             "properties": {},
             "geometry": {
                 "type": "Point",
+                "properties": {
+                  "title": i.title,
+                  "marker-symbol": "marker"
+                },
                 "coordinates": [i.longitude, i.latitude]
             }
-        }]
+        })
     })
 
     var minLon = Math.min.apply(null, lons);
@@ -199,8 +234,8 @@ function onMove(e) {
     // Update the Point feature in `geojson` coordinates
     // and call setData to the source layer `point` on it.
 
-    geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
-    mapObj.map.getSource('user-destination').setData(geojson);
+    search_geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
+    mapObj.map.getSource('searched-point').setData(search_geojson);
 }
 
 function onUp(e) {
@@ -216,7 +251,7 @@ function onUp(e) {
     isDragging = false;
 
     var features = mapObj.map.queryRenderedFeatures(e.point);
-    console.log(features)
+    // console.log(features)
     if (features.length) {
         feature = []
         features.forEach(function(feat){
@@ -228,8 +263,14 @@ function onUp(e) {
                 //     .setHTML(feature.properties.description)
                 //     .addTo(map);
                 popup.setLngLat(feature.geometry.coordinates)
-                    .setHTML(feature.properties.name+"<br>"+coords.lng + '<br>' + coords.lat)
+                    .setHTML("<b>"+feature.properties.name+"</b>")
                     .addTo(mapObj.map);
+
+                $("#location").textContent = feature.properties.name
+                console.log($("#location"))
+
+
+
             }
         })
         // Populate the popup and set its coordinates

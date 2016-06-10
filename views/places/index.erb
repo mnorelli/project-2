@@ -12,14 +12,23 @@
     <img src="<%= place.photo_url %>" alt="<%= place.title %>">
     <h6><%= place.location %></h6>
     <p><%= place.description %></p>
-<!--   <script type="text/javascript">
+<!--     <script type="text/javascript">
       var latTemp = '<%= place.latitude %>';
       var lonTemp = '<%= place.longitude %>';
-      pointsArray.push({longitude:lonTemp,latitude:latTemp});
+      var title = '<%= place.title %>';
+      pointsArray.push({longitude:lonTemp,latitude:latTemp,title:title});
   </script> -->
   </article>
 <% end %>
-<!-- <script type="text/javascript">
-      // makePoints(pointsArray);
-</script> -->
 </section>
+<!-- <script type="text/javascript">
+
+  var pointsArray = [];
+  <% @places.each do |place| %>
+      var latTemp = '<%= place.latitude %>';
+      var lonTemp = '<%= place.longitude %>';
+      var title = '<%= place.title %>';
+      pointsArray.push({longitude:lonTemp,latitude:latTemp,title:title});
+  <% end %>
+  makePoints(pointsArray);
+</script> -->
