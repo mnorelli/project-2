@@ -7,3 +7,4 @@ gem "activerecord" #gives us all the helper methods of ActiveRecord and allows f
 gem "pg" #allows us to use postgresql as a DBMS for our app
 gem "tux" #allows us to have an interactive shell to play with object creation
 gem "geocoder" # allows for translating names to coordinates
+ruby "2.3.1"
