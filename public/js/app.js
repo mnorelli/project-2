@@ -266,7 +266,7 @@ function onUp(e) {
                     .setHTML("<b>"+feature.properties.name+"</b>")
                     .addTo(mapObj.map);
 
-                $("#location").textContent = feature.properties.name
+                $("#location").setAttribute("value",feature.properties.name)
                 console.log($("#location"))
 
 
